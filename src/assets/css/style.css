@@ -1,0 +1,108 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: Arial;
+  background: #2a2e52;
+  background-image: linear-gradient(#302d72, transparent 20%), linear-gradient(135deg, #302d72, transparent 45%), linear-gradient(225deg, #302d72, transparent 45%);
+  background-attachment: fixed;
+  color: white;
+}
+
+h1 {
+  @apply text-3xl;
+}
+
+h2 {
+  @apply text-2xl;
+  color: #00c5f6;
+}
+
+.modalBox {
+  @apply p-5 rounded-lg shadow-lg;
+  width: 600px;
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  background: #2a2e52;
+  background-image: linear-gradient(#302d72, transparent 20%), linear-gradient(135deg, #302d72, transparent 45%), linear-gradient(225deg, #302d72, transparent 45%);
+  position: relative;
+}
+.modalBox:focus-visible {
+  outline: none;
+}
+
+.overlayBox {
+  background-color: rgba(31, 25, 75, 0.5);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+.btn-close {
+  @apply flex justify-center items-center rounded-md shadow-md;
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  height: 32px;
+  width: 32px;
+  background-color: #00c5f6;
+}
+
+form.inputWrap {
+  @apply rounded-full overflow-hidden;
+  border: 2px solid #00c5f6;
+}
+form.inputWrap input {
+  @apply py-2 px-5 text-white;
+  background-color: transparent;
+  transition: all 0.5s;
+}
+form.inputWrap input:focus-visible {
+  outline: none;
+}
+form.inputWrap input::placeholder {
+  color: #00c5f6;
+  opacity: 0.5;
+}
+form.inputWrap button {
+  @apply text-white;
+  padding: 0.5rem 1rem;
+}
+form.inputWrap button:hover {
+  background-color: #1f194b;
+  color: #e0469e;
+}
+
+.errorText {
+  color: #00c5f6;
+}
+
+.spinner {
+  @apply rounded-full border;
+  border-width: 8px;
+  border-color: #00c5f6;
+  border-right-color: transparent;
+  height: 25px;
+  width: 25px;
+  animation: rotation 2s infinite linear;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+/*# sourceMappingURL=style.css.map */
