@@ -1,6 +1,6 @@
 import { useState, useContext, useRef } from 'react'
 import WeatherContext from '../context/weather/WeatherContext'
-import { getGeo } from '../context/weather/WeatherActions'
+import { getGeo, getCurrent } from '../context/weather/WeatherActions'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faXmark, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import Modal from 'react-modal'
@@ -9,7 +9,7 @@ import Spinner from './Spinner'
 Modal.setAppElement('#root')
 
 function Zip() {
-    const { dispatch } = useContext(WeatherContext)
+    const { dispatch, locData, error } = useContext(WeatherContext)
     const [modalIsOpen, setModalIsOpen] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
     const [errorText, setErrorText] = useState(null)
@@ -27,11 +27,15 @@ function Zip() {
             setErrorText('Please enter a valid zip code')
         } else {
             setErrorText(null)
-            dispatch({ type: 'GET_ZIP', payload: data })
         }
+        let currentData = await getCurrent(data)
+        dispatch({ type: 'SET_CURRENT', payload: currentData })
         setIsLoading(false)
         if (!data.cod) closeModal()
     }
+
+
+    if (error) return <>{error}</>
 
     return (
         <>

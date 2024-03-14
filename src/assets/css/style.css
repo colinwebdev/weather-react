@@ -96,6 +96,59 @@ form.inputWrap button:hover {
   animation: rotation 2s infinite linear;
 }
 
+.deg {
+  font-size: 50%;
+  margin-top: -6%;
+}
+
+#current {
+  background-image: linear-gradient(0deg, transparent 50%, #5c3fa8);
+  border: 2px solid rgba(92, 63, 168, 0.5);
+  aspect-ratio: 1/1;
+  margin-top: 100px;
+  box-shadow: 0 0 30px rgba(92, 63, 168, 0.3);
+}
+#current h1 {
+  margin-top: 100px;
+}
+#current .wrap {
+  display: grid;
+  margin-bottom: 450px;
+}
+#current .wrap img {
+  width: 400px;
+  height: auto;
+}
+#current .wrap .temp {
+  text-shadow: 0 0 20px #1f194b, 0 0 15px #1f194b, 0 0 5px #1f194b;
+}
+#current .dateTime {
+  box-shadow: 0 0 30px rgba(92, 63, 168, 0.3);
+  aspect-ratio: 1/1;
+  position: absolute;
+  bottom: -16%;
+  background-image: linear-gradient(0deg, #302d72 50%, #5c3fa8);
+}
+#current .dateTime .date {
+  border-bottom: 3px solid white;
+  border-image: linear-gradient(90deg, transparent, #5c3fa8, transparent) 1;
+}
+#current .hiLo {
+  bottom: 10%;
+  justify-content: space-between;
+}
+#current .hiLo .hi,
+#current .hiLo .lo {
+  @apply rounded-full flex flex-col justify-center items-center gap-2;
+  box-shadow: 0 0 30px rgba(92, 63, 168, 0.3);
+  height: 115px;
+  width: 115px;
+}
+#current .hiLo .hi p:nth-of-type(2),
+#current .hiLo .lo p:nth-of-type(2) {
+  font-size: 2.5rem;
+}
+
 @keyframes rotation {
   from {
     transform: rotate(0deg);

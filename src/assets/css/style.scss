@@ -110,6 +110,63 @@ form.inputWrap {
     width: 25px;
     animation: rotation 2s infinite linear;
 }
+
+.deg {
+    font-size: 50%;
+    margin-top: -6%;
+}
+
+#current {
+    background-image: linear-gradient(0deg, transparent 50%, $purple);
+    border: 2px solid rgba($purple, 0.5);
+    aspect-ratio: 1/1;
+    margin-top: 100px;
+    box-shadow: 0 0 30px rgba($purple, 0.3);
+    h1 {
+        margin-top: 100px;
+    }
+    .wrap {
+        display: grid;
+        margin-bottom: 450px;
+        img {
+            width: 400px;
+            height: auto;
+        }
+        .temp {
+            text-shadow: 0 0 20px $darker, 0 0 15px $darker, 0 0 5px $darker;
+        }
+    }
+    .dateTime {
+        box-shadow: 0 0 30px rgba($purple, 0.3);
+        aspect-ratio: 1/1;
+        position: absolute;
+        bottom: -16%;
+        background-image: linear-gradient(0deg, $indigo 50%, $purple);
+        .date {
+            border-bottom: 3px solid white;
+            border-image: $borderImg;
+        }
+    }
+    .hiLo {
+        bottom: 10%;
+        justify-content: space-between;
+        .hi,
+        .lo {
+            @apply rounded-full flex flex-col justify-center items-center gap-2;
+            box-shadow: 0 0 30px rgba($purple, 0.3);
+            height: 115px;
+            width: 115px;
+            p:nth-of-type(2) {
+                font-size: 2.5rem;
+                
+                // span {
+                //     margin-top: 0;
+                // }
+            }
+        }
+    }
+}
+
 @keyframes rotation {
     from {
         transform: rotate(0deg);

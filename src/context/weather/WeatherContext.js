@@ -5,8 +5,11 @@ let WeatherContext = createContext()
 
 export const WeatherProvider = ({ children }) => {
     const initialState = {
-        data: {},
+        locData: [],
+        current: {},
+        forecast: [],
         loading: false,
+        error: null
     }
 
     const [state, dispatch] = useReducer(weatherReducer, initialState)
