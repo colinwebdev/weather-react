@@ -1,3 +1,17 @@
+@font-face {
+    font-family: 'Inter';
+    src: url(../fonts/InterTight-Thin.ttf);
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url(../fonts/InterTight-Light.ttf);
+    font-weight: 700;
+    font-style: normal;
+}
+
 $pink: #e0469e;
 $brightBlue: #2f3996;
 $blue: #2a2e52;
@@ -16,8 +30,8 @@ $borderImg2: linear-gradient(90deg, $indigo 20%, transparent) 1;
 }
 
 body {
-    font-family: Arial;
-    background: $blue;
+    font-family: 'Inter';
+    background: $indigo;
     background-image: linear-gradient($indigo, transparent 20%),
         linear-gradient(135deg, $indigo, transparent 45%),
         linear-gradient(225deg, $indigo, transparent 45%);
@@ -73,11 +87,12 @@ h2 {
 }
 
 form.inputWrap {
-    @apply rounded-full overflow-hidden;
-    border: 2px solid $aqua;
+    @apply rounded-t-full overflow-hidden;
+    border: 2px solid rgba($purple, 0.5);
+    border-bottom: none;
     input {
-        @apply py-2 px-5 text-white;
-        background-color: transparent;
+        @apply pb-3 pt-4 px-8 text-white;
+        background-color: rgba($darker, 0.5);
         transition: all 0.5s;
         &:focus-visible {
             outline: none;
@@ -88,13 +103,30 @@ form.inputWrap {
         }
     }
     button {
-        @apply text-white;
+        @apply text-white flex justify-center items-center;
         padding: 0.5rem 1rem;
+        width: 57px;
+        background-color: $blue;
         &:hover {
             background-color: $darker;
-            color: $pink;
+            color: $aqua;
         }
     }
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+    border: none;
+    -webkit-text-fill-color: white;
+    -webkit-box-shadow: 0 0 0px 1000px rgba($darker, 0.5) inset;
+    transition: background-color 5000s ease-in-out 0s;
 }
 
 .errorText {
@@ -114,56 +146,56 @@ form.inputWrap {
 .deg {
     font-size: 50%;
     margin-top: -6%;
+    display: block;
+}
+
+.leftBox {
+    margin: 1rem;
+    filter: drop-shadow(0 0 30px rgba($purple, 0.3));
+    height: calc(100% - 2rem);
 }
 
 #current {
-    background-image: linear-gradient(0deg, transparent 50%, $purple);
-    border: 2px solid rgba($purple, 0.5);
-    aspect-ratio: 1/1;
-    margin-top: 100px;
-    box-shadow: 0 0 30px rgba($purple, 0.3);
-    h1 {
-        margin-top: 100px;
+    .inner {
+        background: rgba($darker, 0.5);
+        background-image: linear-gradient(0deg, transparent 50%, $purple);
+        border: 2px solid rgba($purple, 0.5);
+        border-top: none;
+        border-bottom: none;
     }
-    .wrap {
-        display: grid;
-        margin-bottom: 450px;
+
+    
+    .tempBox {
+        text-shadow: 0 0 20px $darker, 0 0 15px $darker, 0 0 5px $darker;
+        font-size: 8rem;
+        height: 155px;
+    }
+    .iconBox {
         img {
-            width: 400px;
+            width: 100%;
             height: auto;
         }
-        .temp {
-            text-shadow: 0 0 20px $darker, 0 0 15px $darker, 0 0 5px $darker;
-        }
     }
-    .dateTime {
-        box-shadow: 0 0 30px rgba($purple, 0.3);
-        aspect-ratio: 1/1;
-        position: absolute;
-        bottom: -16%;
-        background-image: linear-gradient(0deg, $indigo 50%, $purple);
-        .date {
-            border-bottom: 3px solid white;
-            border-image: $borderImg;
-        }
+
+    .desc {
+        border-top: 3px solid white;
+        border-bottom: 3px solid white;
+        border-image: $borderImg;
     }
     .hiLo {
-        bottom: 10%;
-        justify-content: space-between;
-        .hi,
-        .lo {
-            @apply rounded-full flex flex-col justify-center items-center gap-2;
-            box-shadow: 0 0 30px rgba($purple, 0.3);
-            height: 115px;
-            width: 115px;
-            p:nth-of-type(2) {
-                font-size: 2.5rem;
-                
-                // span {
-                //     margin-top: 0;
-                // }
-            }
+        .deg {
+            font-size: 75%;
         }
+    }
+    .hi,
+    .lo {
+        @apply flex items-center;
+    }
+    .dateTime {
+        color: rgba($aqua, 0.6);
+        background: rgba($darker, 0.5);
+        border: 2px solid rgba($purple, 0.5);
+        border-top: none;
     }
 }
 

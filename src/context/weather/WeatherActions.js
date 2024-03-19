@@ -30,13 +30,16 @@ function getTime(data) {
     let date = new Date(data.dt * 1000)
     let hour = date.getHours()
     let minute = date.getMinutes()
-    let currMin = String(minute).length == 1 ? `0${minute}` : minute
-    let currHour = hour > 12 ? hour - 12 : hour == 0 ? 12 : hour
+    let currMin = String(minute).length === 1 ? `0${minute}` : minute
+    let currHour = hour > 12 ? hour - 12 : hour === 0 ? 12 : hour
     let amPm = hour >= 12 ? 'PM' : 'AM'
+    let short = weekDays[date.getDay()].slice(0, 3)
+    console.log(short)
     let dayObj = {
         month: months[date.getMonth()],
         weekday: weekDays[date.getDay()],
         day: date.getDate(),
+        short: short,
         time: `${currHour}:${currMin} ${amPm}`,
     }
     return dayObj
@@ -46,8 +49,8 @@ function titleCase(text) {
     let firstLetter = text.charAt(0).toUpperCase()
     let newText = firstLetter + text.slice(1)
     for (let i = 0; i < text.length; i++) {
-        if (text.charAt(i) == ' ') {
-            let capLetter = text.charAt(i+1).toUpperCase()
+        if (text.charAt(i) === ' ') {
+            let capLetter = text.charAt(i + 1).toUpperCase()
             newText = newText.slice(0, i + 1) + capLetter + newText.slice(i + 2)
         }
     }
@@ -97,7 +100,7 @@ export async function getCurrent(locData) {
     let dataObj = {
         desc: titleCase(weather.description),
         icon: weather.icon,
-        
+
         icon2x: `img2${weather.icon}@2x.png`,
         low: Math.round(main.temp_min),
         high: Math.round(main.temp_max),
@@ -110,7 +113,9 @@ export async function getCurrent(locData) {
         temp: Math.round(main.temp),
         name: data.name,
         date: `${time.month} ${time.day}`,
-        time: time.time
+        time: time.time,
+        day: time.weekday,
+        short: time.short,
     }
     return dataObj
 }
@@ -119,11 +124,28 @@ export async function getForecast(locData) {
     let foreURL = `${forecastURL}?lat=${locData[0]}&lon=${locData[1]}&appid=${API_KEY}&units=imperial`
     let res = await fetch(foreURL)
     let data = await res.json()
-    if (data.cod !== 200) return 'Could not get weather forecast'
+    // if (data.cod != 200) return 'Could not get weather forecast'
     let dataChunks = data.list
     let days = []
+    let dayNum
+    let dayData
+    dataChunks.forEach((chunk) => {
+        let date = new Date(chunk.dt * 1000)
+        let day = date.getDate()
 
-    dataChunks.forEach((chunk) => {})
+        // Calculate how many total days are included
+        if (day !== dayNum) {
+            dayData && days.push(dayData)
+            dayNum = day
+            dayData = []
+        }
+        dayData.push(chunk)
+    })
+
+    // Process each day
+    days.forEach((day)=>{
+        console.log(day)
+    })
 }
 
 export default weatherReducer

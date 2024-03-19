@@ -6,11 +6,14 @@ function App() {
     return (
         <WeatherProvider>
             <div className='wrap p-5 h-screen'>
+                <div className='leftBox w-1/3 flex flex-col'>
+                    <Zip />
+                    <Current />
+                </div>
+                <div className="rightBox">
                 
-                <Zip />
-                <Current />
+                </div>
             </div>
-
         </WeatherProvider>
     )
 }
