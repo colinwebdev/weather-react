@@ -86,49 +86,6 @@ h2 {
     background-color: $aqua;
 }
 
-form.inputWrap {
-    @apply rounded-t-full overflow-hidden;
-    border: 2px solid rgba($purple, 0.5);
-    border-bottom: none;
-    input {
-        @apply pb-3 pt-4 px-8 text-white;
-        background-color: rgba($darker, 0.5);
-        transition: all 0.5s;
-        &:focus-visible {
-            outline: none;
-        }
-        &::placeholder {
-            color: $aqua;
-            opacity: 0.5;
-        }
-    }
-    button {
-        @apply text-white flex justify-center items-center;
-        padding: 0.5rem 1rem;
-        width: 57px;
-        background-color: $blue;
-        &:hover {
-            background-color: $darker;
-            color: $aqua;
-        }
-    }
-}
-
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-textarea:-webkit-autofill,
-textarea:-webkit-autofill:hover,
-textarea:-webkit-autofill:focus,
-select:-webkit-autofill,
-select:-webkit-autofill:hover,
-select:-webkit-autofill:focus {
-    border: none;
-    -webkit-text-fill-color: white;
-    -webkit-box-shadow: 0 0 0px 1000px rgba($darker, 0.5) inset;
-    transition: background-color 5000s ease-in-out 0s;
-}
-
 .errorText {
     color: $aqua;
 }
@@ -149,53 +106,174 @@ select:-webkit-autofill:focus {
     display: block;
 }
 
-.leftBox {
-    margin: 1rem;
-    filter: drop-shadow(0 0 30px rgba($purple, 0.3));
-    height: calc(100% - 2rem);
+.fixedWrap {
+    @apply h-screen fixed flex flex-col;
+    width: 33vw;
 }
 
-#current {
-    .inner {
-        background: rgba($darker, 0.5);
-        background-image: linear-gradient(0deg, transparent 50%, $purple);
-        border: 2px solid rgba($purple, 0.5);
-        border-top: none;
-        border-bottom: none;
+#main {
+    .leftBox {
+        @apply h-full;
+        width: 38vw;
+        filter: drop-shadow(0 0 30px rgba($purple, 0.3));
+        position: relative;
     }
 
-    
-    .tempBox {
-        text-shadow: 0 0 20px $darker, 0 0 15px $darker, 0 0 5px $darker;
-        font-size: 8rem;
-        height: 155px;
+    .inputWrap {
+        input {
+            @apply pb-3 pt-4 px-8 text-white;
+            // background-color: rgba($darker, 0.5);
+            background-color: transparent;
+            transition: all 0.5s;
+            &:focus-visible {
+                outline: none;
+            }
+            &::placeholder {
+                color: $aqua;
+                opacity: 0.5;
+            }
+        }
+
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover,
+        input:-webkit-autofill:focus,
+        textarea:-webkit-autofill,
+        textarea:-webkit-autofill:hover,
+        textarea:-webkit-autofill:focus,
+        select:-webkit-autofill,
+        select:-webkit-autofill:hover,
+        select:-webkit-autofill:focus {
+            border: none;
+            -webkit-text-fill-color: white;
+            // -webkit-box-shadow: 0 0 0px 1000px rgba($darker, 0.5) inset;
+            -webkit-box-shadow: 0 0 0px 1000px transparent inset;
+            transition: background-color 5000s ease-in-out 0s;
+        }
+
+        button {
+            @apply text-white flex justify-center items-center;
+            padding: 0.5rem 1rem;
+            width: 57px;
+            border-radius: 0;
+            transition: all 0.25s ease-in;
+            background-color: rgba($darker, 0.25);
+            &:hover {
+                background-color: rgba($darker, 0.5);
+
+                color: $aqua;
+                transition: all 0.25s ease-out;
+            }
+        }
     }
-    .iconBox {
+
+    #current {
+        .inner {
+            @apply grow;
+            background: rgba($darker, 0.5);
+            background-image: linear-gradient(0deg, transparent 50%, $purple);
+            border: 2px solid rgba($purple, 0.5);
+            border-top: none;
+            border-bottom: none;
+        }
+        .tempBox {
+            text-shadow: 0 0 20px $darker, 0 0 15px $darker, 0 0 5px $darker;
+            font-size: 8rem;
+            height: 155px;
+        }
+        .iconBox {
+            img {
+                width: 100%;
+                height: auto;
+            }
+        }
+        .dateTime {
+            // @apply text-xl mt-auto flex justify-between rounded-b-full px-8 pt-2 pb-5;
+            @apply text-xl mt-auto flex justify-between p-5;
+        }
+        .desc {
+            border-top: 3px solid white;
+            border-bottom: 3px solid white;
+            border-image: $borderImg;
+        }
+        .hiLo {
+            .deg {
+                font-size: 75%;
+            }
+        }
+        .hi,
+        .lo {
+            @apply flex items-center;
+        }
+        .dateTime {
+            color: rgba($aqua, 0.6);
+            background: rgba($darker, 0.5);
+            border: 2px solid rgba($purple, 0.5);
+            border-top: none;
+        }
+    }
+    &.getZip {
+        button {
+            background-color: transparent;
+        }
+        .leftBox {
+            @apply w-full flex justify-center items-center;
+            min-height: 100vh;
+            .fixedWrap {
+                @apply flex justify-center items-center w-full;
+            }
+            .inputWrap {
+                @apply w-1/2;
+                border-top: 3px solid white;
+                border-bottom: 3px solid white;
+                border-image: $borderImg;
+                input {
+                    @apply py-4;
+                }
+            }
+        }
+    }
+}
+
+.dayBox {
+    background: rgba($darker, 0.5);
+    background-image: linear-gradient(30deg, transparent 50%, $purple);
+    border-bottom: 2px solid rgba($purple, 0.5);
+    .top {
+        @apply flex justify-between items-center p-5 relative;
         img {
-            width: 100%;
+            @apply absolute;
+            right: 1rem;
+            top: 0;
+            width: 100px;
             height: auto;
         }
-    }
-
-    .desc {
-        border-top: 3px solid white;
-        border-bottom: 3px solid white;
-        border-image: $borderImg;
-    }
-    .hiLo {
-        .deg {
-            font-size: 75%;
+        &.lowerBox {
+            img {
+                top: -1.5rem;
+            }
         }
     }
-    .hi,
-    .lo {
-        @apply flex items-center;
+    &.open {
+        @apply grow;
+        .hours {
+            @apply flex flex-col grow;
+            .hour {
+                @apply p-3 grow flex items-center;
+                border-top: 1px solid $purple;
+                background-color: rgba($darker, 0.5);
+                img {
+                    height: 50px;
+                    width: auto;
+                }
+            }
+        }
     }
-    .dateTime {
-        color: rgba($aqua, 0.6);
-        background: rgba($darker, 0.5);
-        border: 2px solid rgba($purple, 0.5);
-        border-top: none;
+
+    &.closed {
+        .hours {
+            height: 0;
+            overflow: hidden;
+        }
     }
 }
 

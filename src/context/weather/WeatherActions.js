@@ -34,7 +34,6 @@ function getTime(data) {
     let currHour = hour > 12 ? hour - 12 : hour === 0 ? 12 : hour
     let amPm = hour >= 12 ? 'PM' : 'AM'
     let short = weekDays[date.getDay()].slice(0, 3)
-    console.log(short)
     let dayObj = {
         month: months[date.getMonth()],
         weekday: weekDays[date.getDay()],
@@ -57,6 +56,32 @@ function titleCase(text) {
     return newText
 }
 
+function getWind(data) {
+    let wind = data.wind
+    let deg = wind.deg
+    let direction =
+        deg >= 337 || deg < 22
+            ? 'N'
+            : deg >= 22 && deg < 56
+            ? 'NE'
+            : deg >= 56 && deg < 112
+            ? 'E'
+            : deg >= 112 && deg < 146
+            ? 'SE'
+            : deg >= 146 && deg < 202
+            ? 'S'
+            : deg >= 202 && deg < 247
+            ? 'SW'
+            : deg >= 247 && deg < 292
+            ? 'W'
+            : 'NW'
+    return {
+        speed: wind.speed,
+        deg: deg,
+        direction: direction
+    }
+}
+
 export async function getGeo(zip) {
     let zipURL = `http://api.openweathermap.org/geo/1.0/zip?zip=${zip},US&appid=${API_KEY}`
     let res = await fetch(zipURL)
@@ -77,25 +102,10 @@ export async function getCurrent(locData) {
     // console.log(data)
     let main = data.main
     let weather = data.weather[0]
-    let wind = data.wind
+
     let pressure = (main.pressure / 33.863886666667).toFixed(2)
-    let deg = wind.deg
-    let direction =
-        deg >= 337 || deg < 22
-            ? 'N'
-            : deg >= 22 && deg < 56
-            ? 'NE'
-            : deg >= 56 && deg < 112
-            ? 'E'
-            : deg >= 112 && deg < 146
-            ? 'SE'
-            : deg >= 146 && deg < 202
-            ? 'S'
-            : deg >= 202 && deg < 247
-            ? 'SW'
-            : deg >= 247 && deg < 292
-            ? 'W'
-            : 'NW'
+    let wind = getWind(data)
+    
     let time = getTime(data)
     let dataObj = {
         desc: titleCase(weather.description),
@@ -106,8 +116,8 @@ export async function getCurrent(locData) {
         high: Math.round(main.temp_max),
         humidity: main.humidity,
         windSp: wind.speed,
-        windDir: direction,
-        deg: deg,
+        windDir: wind.direction,
+        deg: wind.deg,
         pressure: `${pressure}inHg`,
         feels: Math.round(main.feels_like),
         temp: Math.round(main.temp),
@@ -124,11 +134,12 @@ export async function getForecast(locData) {
     let foreURL = `${forecastURL}?lat=${locData[0]}&lon=${locData[1]}&appid=${API_KEY}&units=imperial`
     let res = await fetch(foreURL)
     let data = await res.json()
-    // if (data.cod != 200) return 'Could not get weather forecast'
+    if (data.cod != 200) return 'Could not get weather forecast'
     let dataChunks = data.list
     let days = []
     let dayNum
     let dayData
+    let daysData = []
     dataChunks.forEach((chunk) => {
         let date = new Date(chunk.dt * 1000)
         let day = date.getDate()
@@ -143,9 +154,41 @@ export async function getForecast(locData) {
     })
 
     // Process each day
-    days.forEach((day)=>{
-        console.log(day)
+    days.forEach((day, i) => {
+        let dayIconData = day.length === 8 ? day[4] : i === 0 ? day[0] : day[-1]
+        let dayForecast = {
+            icon: dayIconData.weather[0].icon,
+            chunks: [],
+        }
+        day.forEach((dayItem, j) => {
+            // console.log(dayItem)
+            let time = getTime(dayItem)
+
+            let main = dayItem.main
+            let weather = dayItem.weather[0]
+            // console.log(weather)
+            if (j == 0) {
+                dayForecast.date = `${time.month} ${time.day}`
+                dayForecast.day = time.weekday
+                dayForecast.short = time.short
+            }
+            let wind = getWind(dayItem)
+            let dayItemObj = {
+                desc: titleCase(weather.description),
+                icon: weather.icon,
+                low: Math.round(main.temp_min),
+                high: Math.round(main.temp_max),
+                humidity: main.humidity,
+                windSp: wind.speed,
+                windDir: wind.direction,
+                deg: wind.deg,
+                time: time.time,
+            }
+            dayForecast.chunks.push(dayItemObj)
+        })
+        daysData.push(dayForecast)
     })
+    return daysData
 }
 
 export default weatherReducer

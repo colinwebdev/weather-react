@@ -7,7 +7,7 @@ export const WeatherProvider = ({ children }) => {
     const initialState = {
         locData: [],
         current: {},
-        forecast: [],
+        forecast: [], 
         loading: false,
         error: null
     }

@@ -69,49 +69,6 @@ h2 {
   background-color: #00c5f6;
 }
 
-form.inputWrap {
-  @apply rounded-t-full overflow-hidden;
-  border: 2px solid rgba(92, 63, 168, 0.5);
-  border-bottom: none;
-}
-form.inputWrap input {
-  @apply pb-3 pt-4 px-8 text-white;
-  background-color: rgba(31, 25, 75, 0.5);
-  transition: all 0.5s;
-}
-form.inputWrap input:focus-visible {
-  outline: none;
-}
-form.inputWrap input::placeholder {
-  color: #00c5f6;
-  opacity: 0.5;
-}
-form.inputWrap button {
-  @apply text-white flex justify-center items-center;
-  padding: 0.5rem 1rem;
-  width: 57px;
-  background-color: #2a2e52;
-}
-form.inputWrap button:hover {
-  background-color: #1f194b;
-  color: #00c5f6;
-}
-
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-textarea:-webkit-autofill,
-textarea:-webkit-autofill:hover,
-textarea:-webkit-autofill:focus,
-select:-webkit-autofill,
-select:-webkit-autofill:hover,
-select:-webkit-autofill:focus {
-  border: none;
-  -webkit-text-fill-color: white;
-  -webkit-box-shadow: 0 0 0px 1000px rgba(31, 25, 75, 0.5) inset;
-  transition: background-color 5000s ease-in-out 0s;
-}
-
 .errorText {
   color: #00c5f6;
 }
@@ -132,45 +89,150 @@ select:-webkit-autofill:focus {
   display: block;
 }
 
-.leftBox {
-  margin: 1rem;
-  filter: drop-shadow(0 0 30px rgba(92, 63, 168, 0.3));
-  height: calc(100% - 2rem);
+.fixedWrap {
+  @apply h-screen fixed flex flex-col;
+  width: 33vw;
 }
 
-#current .inner {
+#main .leftBox {
+  @apply h-full;
+  width: 38vw;
+  filter: drop-shadow(0 0 30px rgba(92, 63, 168, 0.3));
+  position: relative;
+}
+#main .inputWrap input {
+  @apply pb-3 pt-4 px-8 text-white;
+  background-color: transparent;
+  transition: all 0.5s;
+}
+#main .inputWrap input:focus-visible {
+  outline: none;
+}
+#main .inputWrap input::placeholder {
+  color: #00c5f6;
+  opacity: 0.5;
+}
+#main .inputWrap input:-webkit-autofill,
+#main .inputWrap input:-webkit-autofill:hover,
+#main .inputWrap input:-webkit-autofill:focus,
+#main .inputWrap textarea:-webkit-autofill,
+#main .inputWrap textarea:-webkit-autofill:hover,
+#main .inputWrap textarea:-webkit-autofill:focus,
+#main .inputWrap select:-webkit-autofill,
+#main .inputWrap select:-webkit-autofill:hover,
+#main .inputWrap select:-webkit-autofill:focus {
+  border: none;
+  -webkit-text-fill-color: white;
+  -webkit-box-shadow: 0 0 0px 1000px transparent inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+#main .inputWrap button {
+  @apply text-white flex justify-center items-center;
+  padding: 0.5rem 1rem;
+  width: 57px;
+  border-radius: 0;
+  transition: all 0.25s ease-in;
+  background-color: rgba(31, 25, 75, 0.25);
+}
+#main .inputWrap button:hover {
+  background-color: rgba(31, 25, 75, 0.5);
+  color: #00c5f6;
+  transition: all 0.25s ease-out;
+}
+#main #current .inner {
+  @apply grow;
   background: rgba(31, 25, 75, 0.5);
   background-image: linear-gradient(0deg, transparent 50%, #5c3fa8);
   border: 2px solid rgba(92, 63, 168, 0.5);
   border-top: none;
   border-bottom: none;
 }
-#current .tempBox {
+#main #current .tempBox {
   text-shadow: 0 0 20px #1f194b, 0 0 15px #1f194b, 0 0 5px #1f194b;
   font-size: 8rem;
   height: 155px;
 }
-#current .iconBox img {
+#main #current .iconBox img {
   width: 100%;
   height: auto;
 }
-#current .desc {
+#main #current .dateTime {
+  @apply text-xl mt-auto flex justify-between p-5;
+}
+#main #current .desc {
   border-top: 3px solid white;
   border-bottom: 3px solid white;
   border-image: linear-gradient(90deg, transparent, #5c3fa8, transparent) 1;
 }
-#current .hiLo .deg {
+#main #current .hiLo .deg {
   font-size: 75%;
 }
-#current .hi,
-#current .lo {
+#main #current .hi,
+#main #current .lo {
   @apply flex items-center;
 }
-#current .dateTime {
+#main #current .dateTime {
   color: rgba(0, 197, 246, 0.6);
   background: rgba(31, 25, 75, 0.5);
   border: 2px solid rgba(92, 63, 168, 0.5);
   border-top: none;
+}
+#main.getZip button {
+  background-color: transparent;
+}
+#main.getZip .leftBox {
+  @apply w-full flex justify-center items-center;
+  min-height: 100vh;
+}
+#main.getZip .leftBox .fixedWrap {
+  @apply flex justify-center items-center w-full;
+}
+#main.getZip .leftBox .inputWrap {
+  @apply w-1/2;
+  border-top: 3px solid white;
+  border-bottom: 3px solid white;
+  border-image: linear-gradient(90deg, transparent, #5c3fa8, transparent) 1;
+}
+#main.getZip .leftBox .inputWrap input {
+  @apply py-4;
+}
+
+.dayBox {
+  background: rgba(31, 25, 75, 0.5);
+  background-image: linear-gradient(30deg, transparent 50%, #5c3fa8);
+  border-bottom: 2px solid rgba(92, 63, 168, 0.5);
+}
+.dayBox .top {
+  @apply flex justify-between items-center p-5 relative;
+}
+.dayBox .top img {
+  @apply absolute;
+  right: 1rem;
+  top: 0;
+  width: 100px;
+  height: auto;
+}
+.dayBox .top.lowerBox img {
+  top: -1.5rem;
+}
+.dayBox.open {
+  @apply grow;
+}
+.dayBox.open .hours {
+  @apply flex flex-col grow;
+}
+.dayBox.open .hours .hour {
+  @apply p-3 grow flex items-center;
+  border-top: 1px solid #5c3fa8;
+  background-color: rgba(31, 25, 75, 0.5);
+}
+.dayBox.open .hours .hour img {
+  height: 50px;
+  width: auto;
+}
+.dayBox.closed .hours {
+  height: 0;
+  overflow: hidden;
 }
 
 @keyframes rotation {
