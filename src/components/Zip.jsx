@@ -4,13 +4,14 @@ import {
     getGeo,
     getCurrent,
     getForecast,
+    setOpen,
 } from '../context/weather/WeatherActions'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import Spinner from './Spinner'
 
 function Zip() {
-    const { dispatch, error } = useContext(WeatherContext)
+    const { dispatch, forecast, error } = useContext(WeatherContext)
 
     const [isLoading, setIsLoading] = useState(false)
 
@@ -21,22 +22,26 @@ function Zip() {
         setIsLoading(true)
         let zip = zipRef.current.value
         if (zip === '') {
-            dispatch({type: 'SET_ERROR', payload: 'Please enter a zip code'})
+            dispatch({ type: 'SET_ERROR', payload: 'Please enter a zip code' })
             setIsLoading(false)
             return
         }
         let data = await getGeo(zip)
         if (data[0] === '0' || data[0] === undefined || data.cod) {
-            dispatch({type: 'SET_ERROR', payload: 'Please enter a valid zip code'})
+            dispatch({
+                type: 'SET_ERROR',
+                payload: 'Please enter a valid zip code',
+            })
             setIsLoading(false)
             return
         }
 
         let currentData = await getCurrent(data)
         let forecast = await getForecast(data)
-        
+        let openData = await setOpen(0, forecast.length)
         dispatch({ type: 'SET_CURRENT', payload: currentData })
         dispatch({ type: 'SET_FORECAST', payload: forecast })
+        dispatch({type: 'SET_OPEN', payload: openData})
         setIsLoading(false)
     }
 
@@ -61,9 +66,7 @@ function Zip() {
                     )}
                 </button>
             </form>
-            {error && (
-                <div className='py-2 px-5 mt-2 errorText'>{error}</div>
-            )}
+            {error && <div className='py-2 px-5 mt-2 errorText'>{error}</div>}
 
             {/* <button id='getZip' onClick={openModal}>Enter zip</button>
             <Modal

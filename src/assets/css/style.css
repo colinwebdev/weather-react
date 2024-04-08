@@ -22,6 +22,7 @@ body {
   background-image: linear-gradient(#302d72, transparent 20%), linear-gradient(135deg, #302d72, transparent 45%), linear-gradient(225deg, #302d72, transparent 45%);
   background-attachment: fixed;
   color: white;
+  min-height: 100vh;
 }
 
 h1 {
@@ -110,7 +111,6 @@ h2 {
 }
 #main .inputWrap input::placeholder {
   color: #00c5f6;
-  opacity: 0.5;
 }
 #main .inputWrap input:-webkit-autofill,
 #main .inputWrap input:-webkit-autofill:hover,
@@ -177,24 +177,27 @@ h2 {
   border: 2px solid rgba(92, 63, 168, 0.5);
   border-top: none;
 }
+#main.getZip {
+  @apply h-screen;
+}
 #main.getZip button {
   background-color: transparent;
 }
-#main.getZip .leftBox {
-  @apply w-full flex justify-center items-center;
-  min-height: 100vh;
-}
-#main.getZip .leftBox .fixedWrap {
+#main.getZip .fixedWrap {
   @apply flex justify-center items-center w-full;
 }
-#main.getZip .leftBox .inputWrap {
+#main.getZip .inputWrap {
   @apply w-1/2;
   border-top: 3px solid white;
   border-bottom: 3px solid white;
   border-image: linear-gradient(90deg, transparent, #5c3fa8, transparent) 1;
 }
-#main.getZip .leftBox .inputWrap input {
+#main.getZip .inputWrap input {
   @apply py-4;
+}
+
+.rightBox {
+  margin-left: 33vw;
 }
 
 .dayBox {

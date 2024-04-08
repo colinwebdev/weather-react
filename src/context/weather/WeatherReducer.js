@@ -26,6 +26,13 @@ const weatherReducer = (state, action) => {
                 loading: false,
                 forecast: action.payload
             }
+        case 'SET_OPEN':
+            return {
+                ...state,
+                error: null,
+                loading: false,
+                openStatus: action.payload
+            }
         default:
             return state
     }

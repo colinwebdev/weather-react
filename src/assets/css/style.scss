@@ -37,6 +37,7 @@ body {
         linear-gradient(225deg, $indigo, transparent 45%);
     background-attachment: fixed;
     color: white;
+    min-height: 100vh;
 }
 
 h1 {
@@ -130,7 +131,6 @@ h2 {
             }
             &::placeholder {
                 color: $aqua;
-                opacity: 0.5;
             }
         }
 
@@ -212,26 +212,27 @@ h2 {
         }
     }
     &.getZip {
+        @apply h-screen;
         button {
             background-color: transparent;
         }
-        .leftBox {
-            @apply w-full flex justify-center items-center;
-            min-height: 100vh;
-            .fixedWrap {
-                @apply flex justify-center items-center w-full;
-            }
-            .inputWrap {
-                @apply w-1/2;
-                border-top: 3px solid white;
-                border-bottom: 3px solid white;
-                border-image: $borderImg;
-                input {
-                    @apply py-4;
-                }
+        .fixedWrap {
+            @apply flex justify-center items-center w-full;
+        }
+        .inputWrap {
+            @apply w-1/2;
+            border-top: 3px solid white;
+            border-bottom: 3px solid white;
+            border-image: $borderImg;
+            input {
+                @apply py-4;
             }
         }
     }
+}
+
+.rightBox {
+    margin-left: 33vw;
 }
 
 .dayBox {

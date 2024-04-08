@@ -4,7 +4,6 @@ import { faArrowUp } from '@fortawesome/free-solid-svg-icons'
 
 function HourBox(data) {
     let hourData = data.data
-    console.log(hourData)
     return (
         <div className='hour flex justify-between'>
             <WeatherIcon icon={hourData.icon} />

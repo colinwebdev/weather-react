@@ -8,6 +8,7 @@ export const WeatherProvider = ({ children }) => {
         locData: [],
         current: {},
         forecast: [], 
+        openStatus: [],
         loading: false,
         error: null
     }

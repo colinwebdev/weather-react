@@ -82,6 +82,18 @@ function getWind(data) {
     }
 }
 
+export async function setOpen(k, len, isOpen = false) {
+    let openArr = []
+    for (let i = 0; i < len; i++) {
+        if (i === k) {
+            openArr.push(!isOpen)
+        } else {
+            openArr.push(false)
+        }
+    }
+    return openArr
+}
+
 export async function getGeo(zip) {
     let zipURL = `http://api.openweathermap.org/geo/1.0/zip?zip=${zip},US&appid=${API_KEY}`
     let res = await fetch(zipURL)
