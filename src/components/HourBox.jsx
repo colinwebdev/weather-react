@@ -8,8 +8,24 @@ function HourBox(data) {
         <div className='hour flex justify-between'>
             <WeatherIcon icon={hourData.icon} />
             <div className='time'>{hourData.time}</div>
-            <div className='lo'>L: {hourData.low}</div>
-            <div className='hi'>H: {hourData.high}</div>
+
+            <div className='tempWrap'>
+                <div className='lo tempBox'>
+                    Lo
+                    <p>
+                        {hourData.low}
+                        <span className='deg'>°F</span>
+                    </p>
+                </div>
+                <div className='hi tempBox'>
+                    Hi
+                    <p>
+                        {hourData.high}
+                        <span className='deg'>°F</span>
+                    </p>
+                </div>
+            </div>
+
             <div className='wind flex gap-2'>
                 <div
                     className='arrowBox'

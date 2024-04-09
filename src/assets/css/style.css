@@ -95,6 +95,9 @@ h2 {
   width: 33vw;
 }
 
+#main {
+  min-height: 100vh;
+}
 #main .leftBox {
   @apply h-full;
   width: 38vw;
@@ -123,8 +126,8 @@ h2 {
 #main .inputWrap select:-webkit-autofill:focus {
   border: none;
   -webkit-text-fill-color: white;
-  -webkit-box-shadow: 0 0 0px 1000px transparent inset;
-  transition: background-color 5000s ease-in-out 0s;
+  -webkit-box-shadow: 0 0 0px 1000px #302d72 inset;
+  transition: background-color 0s ease-in-out 0s;
 }
 #main .inputWrap button {
   @apply text-white flex justify-center items-center;
@@ -201,41 +204,138 @@ h2 {
 }
 
 .dayBox {
+  @apply grow h-full;
   background: rgba(31, 25, 75, 0.5);
   background-image: linear-gradient(30deg, transparent 50%, #5c3fa8);
   border-bottom: 2px solid rgba(92, 63, 168, 0.5);
+  transition: all 0.25s ease;
+}
+.dayBox * {
+  transition: all 0.25s ease;
 }
 .dayBox .top {
-  @apply flex justify-between items-center p-5 relative;
+  @apply flex justify-between items-center p-2 relative h-full;
 }
 .dayBox .top img {
-  @apply absolute;
+  @apply absolute h-full py-3;
   right: 1rem;
   top: 0;
-  width: 100px;
-  height: auto;
+  width: auto;
 }
-.dayBox .top.lowerBox img {
-  top: -1.5rem;
+.dayBox .top .date {
+  @apply flex justify-start items-center gap-5;
+}
+.dayBox .top .hiLo .deg {
+  font-size: 75%;
+  margin-top: 2px;
+}
+.dayBox .top .tempBox {
+  @apply flex flex-col;
+}
+.dayBox .top .tempBox .temp {
+  @apply flex;
+}
+.dayBox.full .top {
+  @apply p-5;
+}
+.dayBox.full .top .date {
+  @apply flex-col gap-1;
 }
 .dayBox.open {
   @apply grow;
 }
+.dayBox.open .top {
+  min-height: 80px;
+}
+.dayBox.open .top img {
+  min-height: 100%;
+}
 .dayBox.open .hours {
-  @apply flex flex-col grow;
+  opacity: 1;
+  transition: opacity 0.25s ease 0.3s;
+}
+.dayBox.open .hours table {
+  @apply w-full block;
+}
+.dayBox.open .hours table tbody {
+  @apply w-full;
 }
 .dayBox.open .hours .hour {
-  @apply p-3 grow flex items-center;
   border-top: 1px solid #5c3fa8;
   background-color: rgba(31, 25, 75, 0.5);
+}
+.dayBox.open .hours .hour td {
+  @apply py-3 px-5;
 }
 .dayBox.open .hours .hour img {
   height: 50px;
   width: auto;
 }
+.dayBox.open .hours .hour .icon {
+  min-width: 90px;
+}
+.dayBox.open .hours .hour .time {
+  min-width: 120px;
+}
+.dayBox.open .hours .hour .temp {
+  @apply w-3/4;
+}
+.dayBox.open .hours .hour .tempWrap {
+  @apply flex gap-5 h-full w-full justify-center;
+}
+.dayBox.open .hours .hour .tempBox {
+  @apply flex gap-2;
+}
+.dayBox.open .hours .hour .tempBox p {
+  @apply flex gap-1;
+}
+.dayBox.open .hours .hour .tempBox p .deg {
+  font-size: 75%;
+  margin-top: 2px;
+}
+.dayBox.open .hours .hour .windBox {
+  min-width: 160px;
+}
+.dayBox.open .hours .hour .wind {
+  @apply flex gap-2 justify-end items-center;
+}
+.dayBox.open .hours .hour .wind .arrowBox {
+  @apply h-fit;
+}
+.dayBox.open .hours .hour .wind .text {
+  @apply flex gap-3 justify-end;
+}
+.dayBox:not(.full) .top {
+  @apply px-5;
+}
+.dayBox:not(.full) .top .date {
+  min-width: 110px;
+}
+.dayBox:not(.full) .top .tempBox {
+  @apply flex-row gap-2;
+}
+.dayBox.closed {
+  @apply shrink;
+}
 .dayBox.closed .hours {
+  opacity: 0;
   height: 0;
   overflow: hidden;
+  transition: height 0.25s ease 0.3s;
+}
+.dayBox.closed .hours table {
+  height: 0;
+}
+.dayBox.closed .top img {
+  @apply py-1;
+}
+.dayBox.closed:hover {
+  background: #00c5f6;
+  transition: all 0.25s ease;
+}
+.dayBox.closed:hover .date h2 {
+  color: white;
+  transition: all 0.25s ease;
 }
 
 @keyframes rotation {

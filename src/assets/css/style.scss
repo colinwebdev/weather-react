@@ -113,6 +113,7 @@ h2 {
 }
 
 #main {
+    min-height: 100vh;
     .leftBox {
         @apply h-full;
         width: 38vw;
@@ -146,8 +147,8 @@ h2 {
             border: none;
             -webkit-text-fill-color: white;
             // -webkit-box-shadow: 0 0 0px 1000px rgba($darker, 0.5) inset;
-            -webkit-box-shadow: 0 0 0px 1000px transparent inset;
-            transition: background-color 5000s ease-in-out 0s;
+            -webkit-box-shadow: 0 0 0px 1000px $indigo inset;
+            transition: background-color 0s ease-in-out 0s;
         }
 
         button {
@@ -236,44 +237,152 @@ h2 {
 }
 
 .dayBox {
+    $trans: all 0.25s ease;
+    @apply grow h-full;
     background: rgba($darker, 0.5);
     background-image: linear-gradient(30deg, transparent 50%, $purple);
     border-bottom: 2px solid rgba($purple, 0.5);
+    transition: $trans;
+    * {
+        transition: $trans;
+    }
+
     .top {
-        @apply flex justify-between items-center p-5 relative;
+        @apply flex justify-between items-center p-2 relative h-full;
         img {
-            @apply absolute;
+            @apply absolute h-full py-3;
             right: 1rem;
             top: 0;
-            width: 100px;
-            height: auto;
+            width: auto;
         }
-        &.lowerBox {
-            img {
-                top: -1.5rem;
+        .date {
+            @apply flex justify-start items-center gap-5;
+        }
+        .hiLo {
+            .deg {
+                font-size: 75%;
+                margin-top: 2px;
+            }
+        }
+        .tempBox {
+            @apply flex flex-col;
+            .temp {
+                @apply flex;
+            }
+        }
+    }
+    &.full {
+        .top {
+            @apply p-5;
+            .date {
+                @apply flex-col gap-1;
             }
         }
     }
     &.open {
         @apply grow;
+        .top {
+            min-height: 80px;
+            img {
+                min-height: 100%;
+            }
+        }
         .hours {
-            @apply flex flex-col grow;
+            // @apply flex flex-col grow;
+            opacity: 1;
+            transition: opacity 0.25s ease 0.3s;
+            table {
+                @apply w-full block;
+                tbody {
+                    @apply w-full;
+                }
+            }
             .hour {
-                @apply p-3 grow flex items-center;
+                // @apply py-3 px-5 grow flex items-center;
+                
                 border-top: 1px solid $purple;
                 background-color: rgba($darker, 0.5);
+                td {
+                    @apply py-3 px-5;
+                }
                 img {
                     height: 50px;
                     width: auto;
                 }
+                .icon {
+                    min-width: 90px;
+                }
+                .time {
+                    min-width: 120px;
+                }
+                .temp {
+                    @apply w-3/4;
+                }
+                .tempWrap {
+                    @apply flex gap-5 h-full w-full justify-center;
+                }
+                .tempBox {
+                    @apply flex gap-2;
+                    p {
+                        @apply flex gap-1;
+                        .deg {
+                            font-size: 75%;
+                            margin-top: 2px;
+                        }
+                    }
+                }
+                .windBox {
+                    min-width: 160px;
+                }
+                .wind {
+                    @apply flex gap-2 justify-end items-center;
+                    .arrowBox {
+                        @apply h-fit;
+                    }
+                    .text {
+                        @apply flex gap-3 justify-end;
+                    }
+                }
             }
         }
     }
-
+    &:not(.full) {
+        .top {
+            @apply px-5;
+            .date {
+                min-width: 110px;
+            }
+            .tempBox {
+                @apply flex-row gap-2;
+            }
+        }
+    }
     &.closed {
+        @apply shrink;
         .hours {
+            opacity: 0;
             height: 0;
             overflow: hidden;
+            transition: height 0.25s ease 0.3s;
+            table {
+                // display: none;
+                height: 0;
+            }
+        }
+        .top {
+            img {
+                @apply py-1;
+            }
+        }
+        &:hover {
+            background: $aqua;
+            transition: $trans;
+            .date {
+                h2 {
+                    color: white;
+                    transition: $trans;
+                }
+            }
         }
     }
 }

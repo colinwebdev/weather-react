@@ -1,7 +1,7 @@
 import Zip from './Zip'
 import Current from './Current'
 import DayBox from './DayBox'
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
 import WeatherContext from '../context/weather/WeatherContext'
 
 function Main() {

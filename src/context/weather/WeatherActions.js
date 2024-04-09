@@ -78,7 +78,7 @@ function getWind(data) {
     return {
         speed: wind.speed,
         deg: deg,
-        direction: direction
+        direction: direction,
     }
 }
 
@@ -117,7 +117,7 @@ export async function getCurrent(locData) {
 
     let pressure = (main.pressure / 33.863886666667).toFixed(2)
     let wind = getWind(data)
-    
+
     let time = getTime(data)
     let dataObj = {
         desc: titleCase(weather.description),
@@ -146,7 +146,7 @@ export async function getForecast(locData) {
     let foreURL = `${forecastURL}?lat=${locData[0]}&lon=${locData[1]}&appid=${API_KEY}&units=imperial`
     let res = await fetch(foreURL)
     let data = await res.json()
-    if (data.cod != 200) return 'Could not get weather forecast'
+    if (data.cod !== 200) return 'Could not get weather forecast'
     let dataChunks = data.list
     let days = []
     let dayNum
@@ -172,14 +172,18 @@ export async function getForecast(locData) {
             icon: dayIconData.weather[0].icon,
             chunks: [],
         }
+        let highs = []
+        let lows = []
         day.forEach((dayItem, j) => {
             // console.log(dayItem)
             let time = getTime(dayItem)
 
             let main = dayItem.main
             let weather = dayItem.weather[0]
+            highs.push(Math.round(main.temp_max))
+            lows.push(Math.round(main.temp_min))
             // console.log(weather)
-            if (j == 0) {
+            if (j === 0) {
                 dayForecast.date = `${time.month} ${time.day}`
                 dayForecast.day = time.weekday
                 dayForecast.short = time.short
@@ -198,6 +202,8 @@ export async function getForecast(locData) {
             }
             dayForecast.chunks.push(dayItemObj)
         })
+        dayForecast.hi = Math.max(...highs)
+        dayForecast.lo = Math.min(...lows)
         daysData.push(dayForecast)
     })
     return daysData

@@ -11,7 +11,7 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import Spinner from './Spinner'
 
 function Zip() {
-    const { dispatch, forecast, error } = useContext(WeatherContext)
+    const { dispatch, error } = useContext(WeatherContext)
 
     const [isLoading, setIsLoading] = useState(false)
 
@@ -41,7 +41,7 @@ function Zip() {
         let openData = await setOpen(0, forecast.length)
         dispatch({ type: 'SET_CURRENT', payload: currentData })
         dispatch({ type: 'SET_FORECAST', payload: forecast })
-        dispatch({type: 'SET_OPEN', payload: openData})
+        dispatch({ type: 'SET_OPEN', payload: openData })
         setIsLoading(false)
     }
 
